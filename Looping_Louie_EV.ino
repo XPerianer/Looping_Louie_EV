@@ -1,13 +1,13 @@
 // Constants
 
-const int buttons[] = {0, 0, 0, 0};
-const int powerswitch_pin = 0;
+const int buttons[] = {5,4,3,2};
+const int powerswitch_pin = 6;
 
 const int motor_pwm = 9;
 const int motor_enable_one = 8;
 const int motor_enable_two = 7;
 
-const int motor_base_speed = 100;
+const int motor_base_speed = 70;
 
 void setup() {
   pinMode(powerswitch_pin, INPUT_PULLUP);
@@ -59,12 +59,12 @@ void motor(int speed){ // From -255 for full backwards to 255 to full forward (c
 
 bool pin(int number){
   if(digitalRead(buttons[number]) == LOW)
-    return false;
-   return true;
+    return true;
+   return false;
 }
 
 bool powerswitch(){
   if(digitalRead(powerswitch_pin) == LOW)
-    return false;
-   return true;
+    return true;
+   return false;
 }
