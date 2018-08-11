@@ -6,6 +6,7 @@ const int powerswitch_pin = 6;
 const int motor_pwm = 9;
 const int motor_enable_one = 8;
 const int motor_enable_two = 7;
+const int status_led = 13;
 
 // functions
 
@@ -26,6 +27,10 @@ void motor(int speed) { // From -255 for full backwards to 255 to full forward (
   }
 }
 
+void stop(){
+  motor(0);
+}
+
 bool pin(int number) {
   if (digitalRead(buttons[number]) == LOW)
     return true;
@@ -37,3 +42,18 @@ bool powerswitch() {
     return true;
   return false;
 }
+
+void in_out_setup(){
+   pinMode(powerswitch_pin, INPUT_PULLUP);
+  for (int i = 0; i < 4; i++) {
+    pinMode(buttons[i], INPUT_PULLUP);
+  }
+  pinMode(motor_pwm, OUTPUT);
+  pinMode(motor_enable_one, OUTPUT);
+  pinMode(motor_enable_two, OUTPUT);
+  motor(0);
+
+  pinMode(status_led, OUTPUT);
+}
+
+

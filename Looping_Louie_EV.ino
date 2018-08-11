@@ -1,32 +1,51 @@
 #include "library.h"
 
-const int motor_base_speed = 70;
+const int motor_base_speed = 90;
+int speed= 0;
+
+//Include game_modes here
+#include "game_modes/infinite_boost.h"
+#include "game_modes/slow_speedup.h"
+#include "game_modes/time_capped_boost.h"
+
+
 
 void setup() {
-  pinMode(powerswitch_pin, INPUT_PULLUP);
-  for (int i = 0; i < 4; i++) {
-    pinMode(buttons[i], INPUT_PULLUP);
-  }
-  pinMode(motor_pwm, OUTPUT);
-  pinMode(motor_enable_one, OUTPUT);
-  pinMode(motor_enable_two, OUTPUT);
-  motor(0);
+  in_out_setup();
+  digitalWrite(status_led, false);
 }
 
-void loop() {
+void loop() { // This will run only to select the right game_mode
+  int selected_game_mode = 0;
+
   while (!powerswitch()) {
-    delay(100);
-    motor(0);
-  }
-  while (powerswitch()) {
-    int speed = motor_base_speed;
     for (int i = 0; i < 4; i++) {
       if (pin(i)) {
-        speed = 255;
+        selected_game_mode++;
+        digitalWrite(status_led, true);
+        while (pin(i)) {
+          delay(10);
+        }
+        digitalWrite(status_led, false);
       }
     }
+  }
 
-    motor(speed);
+  while (true) {
+    setup_infinite_boost();
+    setup_slow_speedup();
+    setup_time_capped_boost();
+    while (powerswitch()) {
+      switch (selected_game_mode) {
+        case 0: infinite_boost(); break;
+        case 1: slow_speedup(); break;
+        case 2: time_capped_boost(); break;
+      }
+    }
+    stop();
+    while (!powerswitch()) {
+      delay(50);
+    }
   }
 }
 
