@@ -1,5 +1,5 @@
-const int boost_duration = 3000;
-const int allowed_presses = 1;
+const int boost_duration = 700;
+const int allowed_presses = 4;
 
 long left_presses[4];
 long last_time_pressed;
