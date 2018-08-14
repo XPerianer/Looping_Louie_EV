@@ -7,6 +7,7 @@ int speed= 0;
 #include "game_modes/infinite_boost.h"
 #include "game_modes/slow_speedup.h"
 #include "game_modes/time_capped_boost.h"
+#include "game_modes/presses_capped_boost.h"
 
 
 
@@ -35,11 +36,13 @@ void loop() { // This will run only to select the right game_mode
     setup_infinite_boost();
     setup_slow_speedup();
     setup_time_capped_boost();
+    setup_presses_capped_boost();
     while (powerswitch()) {
       switch (selected_game_mode) {
         case 0: infinite_boost(); break;
         case 1: slow_speedup(); break;
         case 2: time_capped_boost(); break;
+        case 3: presses_capped_boost(); break;
       }
     }
     stop();
