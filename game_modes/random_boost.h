@@ -4,7 +4,7 @@
 //long last_time;
 long time_frame=500;
 long begin_mode = 0;
-int mode=0;
+int mode=59;
 
 void setup_random_boost(){
 	last_time = millis();
@@ -13,6 +13,8 @@ void setup_random_boost(){
 	left[2] = boost_time;
 	left[3] = boost_time;
 	randomSeed(analogRead(0));
+	mode = random(0,100);
+	time_frame = random(800, 1500);
 	begin_mode = millis();
 }
 
@@ -33,7 +35,8 @@ int mode_to_motor_speed(int mode){ //Range of mode from 0 - 99
 void random_boost(){
 	if(millis() - begin_mode > time_frame){ //Select new mode and time_frame
 		mode = random(0,100);
-		time_frame = random(300, 1000);
+		time_frame = random(800, 1500);
+		begin_mode = millis();
 	}
 	
     speed = mode_to_motor_speed(mode);
