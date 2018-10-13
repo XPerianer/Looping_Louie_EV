@@ -18,6 +18,8 @@ Flyback diodes are used, to not let current from the motor that could happen on 
 A capacitor in parrallel to the arduino power stopped resets on the arduino for me, that sometimes happened when Louie changed direction very fast.
 I think this has to do with the 9V block battery not able to deliver enough current.
 
+![Wiring](LoopingLouie_Wiring.png)
+See also [Fritzing File](LoopingLouie.fzz)
 # Software
 The software is written to make it as easy as possible to add game modes on your own. Therefore, there are library like functions for the motor
 control. You find them in [library.h](library.h).
